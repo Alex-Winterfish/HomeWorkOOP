@@ -1,4 +1,5 @@
 class Product:
+    """Класс Product принимает описание единицы товар"""
 
     name: str
     description: str
@@ -13,6 +14,8 @@ class Product:
 
 
 class Category:
+    """Класс Category принимает описание группы товаров"""
+
     name: str
     description: str
     products: list
@@ -25,6 +28,3 @@ class Category:
         self.products = products
         Category.category_count += 1
         Category.product_count += len(products)
-
-
-
