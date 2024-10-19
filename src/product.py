@@ -1,5 +1,5 @@
 class Product:
-
+    '''Класс Product принимает описание единицы товар'''
     name: str
     description: str
     price: float
@@ -13,6 +13,7 @@ class Product:
 
 
 class Category:
+    '''Класс Category принимает описание группы товаров'''
     name: str
     description: str
     products: list
