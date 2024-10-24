@@ -26,3 +26,19 @@ def test_category_append(test_category_smartphones, test_category_tv):
     "Функция проверяет подсчет числа категороий и единиц продукта в классе Category"
     assert test_category_tv.category_count == 4
     assert test_category_tv.product_count == 8
+
+
+def test_category_product_append(test_category_smartphones, test_product_nokia):
+    "Функция проверяет вывод добавлние продукта"
+    assert test_category_smartphones.product_count == 11
+    test_category_smartphones.add_product(test_product_nokia)
+    assert test_category_smartphones.product_count == 12
+
+
+def test_category_product_output(capsys, test_category_smartphones):
+    "Функция проверяет вывод информации о продуктах и их количестве"
+    assert test_category_smartphones.product_count == 15
+    assert test_category_smartphones.products == ('Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n'
+                                                'Iphone 15, 210000.0 руб. Остаток: 8 шт.\n'
+                                                'Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.\n')
+
