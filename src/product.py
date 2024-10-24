@@ -17,7 +17,10 @@ class Product:
 
     @price.setter
     def price(self, price):
-        self.__price = price
+        if price > 0:
+            self.__price = price
+        else:
+            self.__price = self.__price
 
     @classmethod
     def new_product(
@@ -48,10 +51,12 @@ class Category:
 
     @property
     def products(self):
-
+        a = ''
         for product in self.__products:
-            print(f"{product.name}, {product.price} руб. Остаток: {product.quantity}")
+            a += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+        return a
 
     def add_product(self, product):
-        self.product_count += 1
-        return self.__products.append(product)
+
+        self.__products.append(product)
+        Category.product_count += 1
