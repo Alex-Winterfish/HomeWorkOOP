@@ -12,6 +12,13 @@ def test_product_samsung():
 
 
 @pytest.fixture
+def test_product_nokia():
+    return Product(
+        "Nokia 3310", "Монохромный дисплей, Серый цвет, без камеры", 1000.0, 9
+    )
+
+
+@pytest.fixture
 def test_category_smartphones():
     '''Фикстура для инициализации категории "смартфоны"'''
     product1 = Product(
@@ -27,9 +34,19 @@ def test_category_smartphones():
 
 
 @pytest.fixture
-def test_product_tv():
+def test_product_tv_1():
     '''Фикстура для инициализации продукта "телевизор"'''
     return Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+
+
+@pytest.fixture
+def new_price_1():
+    return 500
+
+
+@pytest.fixture
+def new_price_2():
+    return 150000
 
 
 @pytest.fixture
@@ -41,3 +58,21 @@ def test_category_tv():
         "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
         [product4],
     )
+
+
+@pytest.fixture
+def test_product_tv_2():
+    '''Фикстура для инициализации продукта "телевизор"'''
+    product = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+    product.price = 500
+    return product
+
+
+@pytest.fixture
+def new_product():
+    return {
+        "name": "Samsung Galaxy S23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": 5,
+    }
