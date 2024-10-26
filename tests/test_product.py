@@ -28,16 +28,22 @@ def test_new_product(new_product):
     product = Product.new_product(new_product)
     assert product.name == "Samsung Galaxy S23 Ultra"
 
+
 def test_product_str(capsys, test_product_nokia):
-    '''Функция проверяет вывод названия продукта'''
+    """Функция проверяет вывод названия продукта"""
     print(test_product_nokia)
     captured = capsys.readouterr()
-    assert captured.out == 'Nokia 3310, 1000.0 руб. Остаток: 9 шт.\n'
+    assert captured.out == "Nokia 3310, 1000.0 руб. Остаток: 9 шт.\n"
 
-def test_product_add(test_product_samsung,test_product_nokia):
-    '''Функция проверяет сложение экземпляров продуктов и вывод общей цены единиц'''
+
+def test_product_add(test_product_samsung, test_product_nokia):
+    """Функция проверяет сложение экземпляров продуктов и вывод общей цены единиц"""
     assert test_product_samsung + test_product_nokia == 909000.0
 
+
 def test_product_str_1(test_product_samsung):
-    '''Функция проверяет вывод названия продукта'''
-    assert str(test_product_samsung) == 'Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.'
+    """Функция проверяет вывод названия продукта"""
+    assert (
+        str(test_product_samsung)
+        == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    )

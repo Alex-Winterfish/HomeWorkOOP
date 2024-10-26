@@ -12,7 +12,7 @@ class Product:
         self.quantity = quantity
 
     def __str__(self):
-        return f'{self.name}, {self.__price} руб. Остаток: {self.quantity} шт.'
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     @property
     def price(self):
@@ -37,7 +37,8 @@ class Product:
         return cls(name, description, price, quantity)
 
     def __add__(self, other):
-        return self.quantity*self.__price + other.quantity*other.price
+        return self.quantity * self.__price + other.quantity * other.price
+
 
 class Category:
     """Класс Category принимает описание группы товаров"""
@@ -54,19 +55,18 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(self.__products)
 
-
     @property
     def products(self):
-        a = ''
+        a = ""
         for product in self.__products:
             a += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
         return a
+
     def __str__(self):
-        total = 0 # переменная для подсчета общего числа единиц товара в категории
+        total = 0  # переменная для подсчета общего числа единиц товара в категории
         for product in self.__products:
             total += product.quantity
         return f"{self.name}. Остаток: {total} шт."
-
 
     def add_product(self, product):
 

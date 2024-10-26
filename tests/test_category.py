@@ -38,14 +38,18 @@ def test_category_product_append(test_category_smartphones, test_product_nokia):
 def test_category_product_output(capsys, test_category_smartphones):
     "Функция проверяет вывод информации о продуктах и их количестве"
     assert test_category_smartphones.product_count == 15
-    assert test_category_smartphones.products == ('Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.Iphone 15, 210000.0 руб. Остаток: 8 шт.Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.')
+    assert test_category_smartphones.products == (
+        "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.Iphone 15, 210000.0 руб. Остаток: 8 шт.Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт."
+    )
+
 
 def test_category_str(capsys, test_category_smartphones):
-    '''Функция проверяет вывод информации о категории и остатка единиц продукта'''
+    """Функция проверяет вывод информации о категории и остатка единиц продукта"""
     print(test_category_smartphones)
     captured = capsys.readouterr()
-    assert captured.out == 'Смартфоны. Остаток: 27 шт.\n'
+    assert captured.out == "Смартфоны. Остаток: 27 шт.\n"
+
 
 def test_category_str(test_category_smartphones):
-    '''Функция проверяет вывод информации о категории и остатка единиц продукта'''
-    assert str(test_category_smartphones) == 'Смартфоны. Остаток: 27 шт.'
+    """Функция проверяет вывод информации о категории и остатка единиц продукта"""
+    assert str(test_category_smartphones) == "Смартфоны. Остаток: 27 шт."
