@@ -50,6 +50,6 @@ def test_category_str(capsys, test_category_smartphones):
     assert captured.out == "Смартфоны. Остаток: 27 шт.\n"
 
 
-def test_category_str(test_category_smartphones):
+def test_category_str_1(test_category_smartphones):
     """Функция проверяет вывод информации о категории и остатка единиц продукта"""
     assert str(test_category_smartphones) == "Смартфоны. Остаток: 27 шт."
