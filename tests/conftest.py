@@ -1,6 +1,6 @@
 import pytest
 
-from src.product import Product, Category, LawnGrass, Smartphone
+from src.product import Category, LawnGrass, Product, Smartphone
 
 
 @pytest.fixture
@@ -9,17 +9,41 @@ def test_product_samsung():
     return Product(
         "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5
     )
+
+
 @pytest.fixture
 def test_product_grass():
-    return LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+    return LawnGrass(
+        "Газонная трава",
+        "Элитная трава для газона",
+        500.0,
+        20,
+        "Россия",
+        "7 дней",
+        "Зеленый",
+    )
+
 
 @pytest.fixture
 def test_smartphone_xiaomi():
-    return Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
+    return Smartphone(
+        "Xiaomi Redmi Note 11",
+        "1024GB, Синий",
+        31000.0,
+        14,
+        90.3,
+        "Note 11",
+        1024,
+        "Синий",
+    )
+
 
 @pytest.fixture
 def test_smartphone_iphone():
-    return Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
+    return Smartphone(
+        "Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space"
+    )
+
 
 @pytest.fixture
 def test_product_nokia():
@@ -87,5 +111,3 @@ def new_product():
         "price": 180000.0,
         "quantity": 5,
     }
-
-
