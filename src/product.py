@@ -1,16 +1,77 @@
-class Product:
-    """Класс Product принимает описание единицы товар"""
+from abc import ABC, abstractmethod
 
-    name: str
-    description: str
-    price: float
-    quantity: int
 
+class BaseProduct(ABC):
+    @abstractmethod
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
         self.price = price
         self.quantity = quantity
+
+    @abstractmethod
+    def price(self):
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+
+class MixinInfo(BaseProduct):
+    "Класс миксин для расширения функциональности классов"
+
+    def __init__(self, name, description, price, quantity):
+        super().__init__(name, description, price, quantity)
+        print(repr(self))
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}, {self.name}, {self.description}, {self.price},{self.quantity}"
+
+
+class Product(MixinInfo, BaseProduct):
+    """Класс Product принимает описание единицы товар"""
+
+    name: str
+    description: str
+    quantity: int
+
+    def __init__(self, name, description, price, quantity):
+        super().__init__(name, description, price, quantity)
+        self.__price = price
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
+        else:
+            self.quantity = quantity
+
+    def __str__(self):
+        super().__str__()
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, price):
+        if price > 0:
+            self.__price = price
+        else:
+            self.__price = self.__price
+
+    @classmethod
+    def new_product(
+        cls,
+        new_product,
+    ):
+        name = new_product.get("name")
+        description = new_product.get("description")
+        price = new_product.get("price")
+        quantity = new_product.get("quantity")
+        return cls(name, description, price, quantity)
+
+    def __add__(self, other):
+        return self.quantity * self.__price + other.quantity * other.price
 
 
 class Category:
@@ -18,13 +79,78 @@ class Category:
 
     name: str
     description: str
-    products: list
     category_count = 0
     product_count = 0
 
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products
         Category.category_count += 1
-        Category.product_count += len(products)
+        Category.product_count += len(self.__products)
+
+    @property
+    def products(self):
+        a = ""
+        for product in self.__products:
+            a += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
+        return a
+
+    def __str__(self):
+        total = 0  # переменная для подсчета общего числа единиц товара в категории
+        for product in self.__products:
+            total += product.quantity
+        return f"{self.name}. Остаток: {total} шт."
+
+    def add_product(self, product):
+        if not isinstance(product, Product):
+            raise TypeError
+        else:
+            self.__products.append(product)
+            Category.product_count += 1
+
+    def middle_price(self):
+        sum_price = 0  # переменная для накопления суммы цен товаров в категории
+        for product in self.__products:
+            sum_price += product.price
+        try:
+            m_price = round(sum_price / len(self.__products), 2)  # расчет средней цены
+        except ZeroDivisionError:
+            m_price = 0
+        return m_price
+
+
+class Smartphone(Product):
+
+    def __init__(
+        self, name, description, price, quantity, efficiency, model, memory, color
+    ):
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+    def __add__(self, other):
+        if type(self) is type(other):
+            return super().__add__(other)
+
+        else:
+            raise TypeError
+
+
+class LawnGrass(Product):
+
+    def __init__(
+        self, name, description, price, quantity, country, germination_period, color
+    ):
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
+
+    def __add__(self, other):
+        if type(self) is type(other):
+            return super().__add__(other)
+        else:
+            raise TypeError
