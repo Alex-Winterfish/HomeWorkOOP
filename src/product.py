@@ -39,6 +39,10 @@ class Product(MixinInfo, BaseProduct):
     def __init__(self, name, description, price, quantity):
         super().__init__(name, description, price, quantity)
         self.__price = price
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
+        else:
+            self.quantity = quantity
 
     def __str__(self):
         super().__str__()
@@ -104,6 +108,16 @@ class Category:
         else:
             self.__products.append(product)
             Category.product_count += 1
+
+    def middle_price(self):
+        sum_price = 0  # переменная для накопления суммы цен товаров в категории
+        for product in self.__products:
+            sum_price += product.price
+        try:
+            m_price = round(sum_price / len(self.__products), 2)  # расчет средней цены
+        except ZeroDivisionError:
+            m_price = 0
+        return m_price
 
 
 class Smartphone(Product):
