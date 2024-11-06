@@ -1,4 +1,35 @@
-class Product:
+from abc import ABC, abstractmethod
+
+
+class BaseProduct(ABC):
+    @abstractmethod
+    def __init__(self, name, description, price, quantity):
+        self.name = name
+        self.description = description
+        self.price = price
+        self.quantity = quantity
+
+    @abstractmethod
+    def price(self):
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+
+class MixinInfo(BaseProduct):
+    "Класс миксин для расширения функциональности классов"
+
+    def __init__(self, name, description, price, quantity):
+        super().__init__(name, description, price, quantity)
+        print(repr(self))
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}, {self.name}, {self.description}, {self.price},{self.quantity}"
+
+
+class Product(MixinInfo, BaseProduct):
     """Класс Product принимает описание единицы товар"""
 
     name: str
@@ -6,12 +37,11 @@ class Product:
     quantity: int
 
     def __init__(self, name, description, price, quantity):
-        self.name = name
-        self.description = description
+        super().__init__(name, description, price, quantity)
         self.__price = price
-        self.quantity = quantity
 
     def __str__(self):
+        super().__str__()
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     @property

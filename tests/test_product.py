@@ -31,6 +31,11 @@ def test_new_product(new_product):
 
 def test_product_str(capsys, test_product_nokia):
     """Функция проверяет вывод названия продукта"""
+    captured_repr = capsys.readouterr()
+    assert (
+        captured_repr.out
+        == "Product, Nokia 3310, Монохромный дисплей, Серый цвет, без камеры, 1000.0,9\n"
+    )
     print(test_product_nokia)
     captured = capsys.readouterr()
     assert captured.out == "Nokia 3310, 1000.0 руб. Остаток: 9 шт.\n"
